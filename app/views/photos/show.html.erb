@@ -18,34 +18,8 @@
         </a>
         <% else %>
 
-
-        <form action="/create_like" method="post">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-
-
-          <!-- Label and input for user_id -->
-
-          <div class="form-group">
-            <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
-          </div>
-
-
-
-          <!-- Label and input for photo_id -->
-
-          <div class="form-group">
-            <input type="hidden" id="photo_id" name="photo_id" placeholder="Photo" class="form-control" value="<%= @photo.id %>">
-          </div>
-
-          <button class="btn btn-link">
-            <i class="text-primary fa fa-heart-o">
-            </i>
-          </button>
-
-        </form>
-
+        <i class="text-primary fa fa-heart-o">
+        </i>
         <% end %>
 
         <% if @photo.likes.length==0 then %>
