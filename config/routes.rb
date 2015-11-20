@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   #------------------------------
 
   # Routes for the Like resource:
+
+  # MY_LIKES
+  get "/my_likes", :controller => "likes", :action => "my_likes"
   # CREATE
   get "/likes/new", :controller => "likes", :action => "new"
   post "/create_like", :controller => "likes", :action => "create"
@@ -53,7 +56,7 @@ Rails.application.routes.draw do
   devise_for :users
     # READ
     get "/users", :controller => "users", :action => "index"
-    get "/photos/:id", :controller => "photos", :action => "show"
+    get "/users/:id", :controller => "users", :action => "show"
 
 # Routes for the User resource:
 
