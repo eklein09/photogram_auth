@@ -12,16 +12,18 @@
         <a href="/photos/<%= @photo.id %>"><img src="<%= @photo.image %>" class="img-responsive" alt="<%= @photo.caption %>">
         </a>
 
-        <!-- If the user already likes the photo -->
-        <% if @photo.fans.pluck( :id ).include?(current_user.id) %>
+        <% if @photo.likes.pluck( :user_id ).include?(current_user.id) %>
         <a href="/delete_like/<%= Like.find_by( :user_id => current_user.id , :photo_id => @photo.id).id %>">
           <i class="text-primary fa fa-heart"></i>
         </a>
         <% else %>
 
+
         <form action="/create_like" method="post">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
 
           <!-- Label and input for user_id -->
 
@@ -52,11 +54,10 @@
         Be the first person to like this
 
         <%  elsif  @photo.likes.length==1 then%>
-
         <%= @photo.likes.first.user.username %> likes this
 
         <% else %>
-        <%= @photo.fans.pluck(:username).to_sentence %> like this
+        <%= @photo.likes.pluck(:user_id).to_sentence %> like this
         <% end %>
 
 
