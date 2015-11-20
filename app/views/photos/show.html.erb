@@ -11,6 +11,62 @@
       <div class="panel-body">
         <a href="/photos/<%= @photo.id %>"><img src="<%= @photo.image %>" class="img-responsive" alt="<%= @photo.caption %>">
         </a>
+
+        <% if @photo.likes.pluck( :user_id ).include?(current_user.id) %>
+        <a href="/delete_like/<%= Like.find_by( :user_id => current_user.id , :photo_id => @photo.id).id %>">
+        <i class="text-primary fa fa-heart"></i>
+        </a>
+        <% else %>
+
+        <i class="text-primary fa fa-heart-o">
+        </i>
+        <% end %>
+
+        <% if @photo.likes.length==0 then %>
+
+
+        Be the first person to like this
+
+        <%  elsif  @photo.likes.length==1 then%>
+        <%= @photo.likes.first.user.username %> likes this
+
+        <% else %>
+        <%= @photo.likes.pluck(:user_id).to_sentence %> like this
+        <% end %>
+
+
+        <ul class="media-list">
+          <li class="media">
+            <div class="media-body">
+              <h4 class="media-heading"><%= @photo.user.username %>
+
+                <small>
+                  <%= time_ago_in_words(@photo.updated_at) %> ago
+                </small>
+
+              </h4>
+              <%= @photo.caption %>
+            </div>
+          </li>
+
+          <%  @photo.comments.each do |comment| %>
+
+          <li class="media">
+
+            <div class="media-body">
+              <h4 class="media-heading"><%= comment.user.username %>
+
+                <small>
+                  <%= time_ago_in_words(comment.updated_at) %> ago
+                </small>
+
+              </h4>
+              <%= comment.body %>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+
       </div>
     </div>
 

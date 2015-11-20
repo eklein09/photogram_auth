@@ -61,7 +61,7 @@ class LikesController < ApplicationController
     @like.destroy
 
 
-    redirect_to "/likes", :notice => "Like deleted."
+    redirect_to :back, :notice => "Like deleted."
 
   end
 end
