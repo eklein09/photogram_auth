@@ -14,7 +14,7 @@
 
         <% if @photo.likes.pluck( :user_id ).include?(current_user.id) %>
         <a href="/delete_like/<%= Like.find_by( :user_id => current_user.id , :photo_id => @photo.id).id %>">
-        <i class="text-primary fa fa-heart"></i>
+          <i class="text-primary fa fa-heart"></i>
         </a>
         <% else %>
 
@@ -38,7 +38,7 @@
         <ul class="media-list">
           <li class="media">
             <div class="media-body">
-              <h4 class="media-heading"><%= @photo.user.username %>
+              <h4 class="text-primary media-heading"><%= @photo.user.username %>
 
                 <small>
                   <%= time_ago_in_words(@photo.updated_at) %> ago
@@ -54,7 +54,7 @@
           <li class="media">
 
             <div class="media-body">
-              <h4 class="media-heading"><%= comment.user.username %>
+              <h4 class="text-primary media-heading"><%= comment.user.username %>
 
                 <small>
                   <%= time_ago_in_words(comment.updated_at) %> ago
@@ -67,8 +67,38 @@
           <% end %>
         </ul>
 
+        <form action="/create_comment" method="post">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+
+          <!-- Label and input for photo_id -->
+
+          <div class="form-group">
+            <input type="hidden" id="photo_id" name="photo_id" placeholder="Photo" class="form-control" value="<%= @photo.id %>">
+          </div>
+
+
+          <!-- Label and input for body -->
+          <div class="form-group">
+
+            <textarea id="body" name="body" placeholder="Add a comment..." class="form-control" rows="3"><%= @comment.body %></textarea>
+          </div>
+
+          <!-- Label and input for user_id -->
+
+          <div class="form-group">
+            <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+          </div>
+
+          <input class="btn btn-default" type="submit" value="Submit">
+
+        </form>
       </div>
     </div>
+
+
 
     <div class="btn-group btn-group-justified">
 
