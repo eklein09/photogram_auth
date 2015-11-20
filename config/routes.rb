@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :views
   # Routes for the Comment resource:
   # CREATE
   get "/comments/new", :controller => "comments", :action => "new"
@@ -20,7 +19,7 @@ Rails.application.routes.draw do
   # Routes for the Like resource:
 
   # MY_LIKES
-  get "/my_likes", :controller => "likes",  :action => "my_likes"
+  get "/my_likes", :controller => "likes", :action => "my_likes"
   # CREATE
   get "/likes/new", :controller => "likes", :action => "new"
   post "/create_like", :controller => "likes", :action => "create"
